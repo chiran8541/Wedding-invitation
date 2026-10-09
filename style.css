@@ -1,0 +1,155 @@
+:root {
+  --ivory: #fbf6ec;
+  --paper: #fffdf8;
+  --gold: #a8801f;
+  --gold-soft: #d9bf7a;
+  --rose: #c98a8a;
+  --ink: #2b2420;
+  --muted: #6d625a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%, #f4e7d0 0, transparent 40%),
+    radial-gradient(circle at 80% 90%, #f6dcdc 0, transparent 40%),
+    var(--ivory);
+  text-align: center;
+}
+
+.script, .script-line, .script-name, .names { font-family: "Great Vibes", cursive; font-weight: 400; }
+
+/* ---------- Cover ---------- */
+.cover {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+}
+
+.frame {
+  width: min(100%, 720px);
+  min-height: calc(100vh - 2.4rem);
+  padding: 2.5rem 1.5rem;
+  background: var(--paper);
+  border: 2px solid var(--gold);
+  outline: 1px solid var(--gold-soft);
+  outline-offset: -12px;
+  box-shadow: 0 0 0 8px var(--paper), 0 0 0 10px var(--gold-soft), 0 20px 50px rgba(120, 90, 30, .18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .9rem;
+  animation: fade 1.4s ease both;
+}
+
+.khanda { font-size: 3.2rem; color: var(--ink); line-height: 1; }
+.khanda.sm { font-size: 2rem; }
+
+.eyebrow {
+  font-family: "Cinzel", serif;
+  letter-spacing: .35em;
+  font-size: .95rem;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.monogram {
+  width: 150px; height: 150px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 6px var(--paper), 0 0 0 7px var(--gold-soft);
+  display: flex; align-items: center; justify-content: center; gap: .1rem;
+  font-family: "Great Vibes", cursive;
+  font-size: 3.4rem;
+  color: var(--ink);
+  margin: .6rem 0;
+}
+.monogram i { font-size: 1.8rem; color: var(--gold); font-style: normal; }
+
+.names { font-size: clamp(2.6rem, 9vw, 4.6rem); line-height: 1.15; }
+.names small { font-family: "Cinzel", serif; font-size: .3em; letter-spacing: .25em; color: var(--gold); text-transform: uppercase; padding: 0 .4em; }
+
+.date { font-size: 1.5rem; font-weight: 600; letter-spacing: .05em; }
+.place { color: var(--muted); letter-spacing: .3em; text-transform: uppercase; font-size: .95rem; }
+
+.countdown { display: flex; gap: .8rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center; }
+.countdown div {
+  min-width: 68px; padding: .5rem .3rem;
+  border: 1px solid var(--gold-soft); border-radius: 6px;
+  font-size: .8rem; text-transform: uppercase; letter-spacing: .15em; color: var(--muted);
+}
+.countdown b { display: block; font-family: "Cinzel", serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 0; }
+.countdown .done { border: none; font-size: 1.2rem; text-transform: none; letter-spacing: 0; }
+
+.scroll-hint { margin-top: 1.2rem; color: var(--gold); text-decoration: none; font-style: italic; animation: bob 2s ease-in-out infinite; }
+
+/* ---------- Content ---------- */
+main { width: min(100% - 2rem, 680px); margin: 0 auto; padding-bottom: 2rem; }
+
+.card, .event {
+  background: var(--paper);
+  border: 1px solid var(--gold-soft);
+  border-radius: 4px;
+  padding: 2.2rem 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 24px rgba(120, 90, 30, .08);
+}
+.card p, .event p { margin: .45rem 0; }
+.card .script { font-size: 3rem; color: var(--gold); line-height: 1.1; }
+.strong { font-weight: 600; }
+.script-line { font-size: 2rem; margin: .8rem 0 !important; }
+.script-name { font-size: 3rem; line-height: 1.2; margin: .6rem 0 !important; }
+.with { font-style: italic; color: var(--gold); }
+.small { font-size: 1rem; color: var(--muted); }
+
+.divider { margin: 1.4rem 0 .2rem; color: var(--gold); display: flex; align-items: center; gap: 1rem; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
+
+.section-title { font-family: "Cinzel", serif; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; font-size: 1.3rem; color: var(--gold); margin: 3rem 0 1rem; }
+
+.timeline { position: relative; }
+.timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--gold-soft); z-index: -1; }
+.event h3 { font-family: "Cinzel", serif; font-weight: 600; font-size: 1.6rem; color: var(--ink); margin: .3rem 0; }
+.event h3 em { font-family: "Cormorant Garamond", serif; font-weight: 400; color: var(--gold); }
+.when { color: var(--gold); letter-spacing: .12em; text-transform: uppercase; font-size: .9rem; }
+.time { font-size: 1.4rem; font-weight: 600; }
+.invite { font-style: italic; color: var(--muted); }
+.venue { margin-top: .9rem !important; }
+
+.actions { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin-top: 1.1rem; }
+.btn {
+  font: inherit; font-size: 1rem; cursor: pointer;
+  padding: .5rem 1.1rem; border-radius: 999px;
+  border: 1px solid var(--gold); background: var(--gold); color: #fff;
+  text-decoration: none; transition: transform .15s, box-shadow .15s;
+}
+.btn.ghost { background: transparent; color: var(--gold); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(168, 128, 31, .25); }
+
+footer { padding: 2rem 1rem 3rem; color: var(--muted); }
+.heart { color: var(--rose); }
+.credit { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gold-soft); font-family: "Cinzel", serif; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+/* ---------- Animation ---------- */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@keyframes fade { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes bob { 50% { transform: translateY(6px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 1.1rem; }
+  .monogram { width: 120px; height: 120px; font-size: 2.8rem; }
+}
