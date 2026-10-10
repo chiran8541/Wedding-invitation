@@ -80,14 +80,10 @@ body {
 .date { font-size: 1.5rem; font-weight: 600; letter-spacing: .05em; }
 .place { color: var(--muted); letter-spacing: .3em; text-transform: uppercase; font-size: .95rem; }
 
-.countdown { display: flex; gap: .8rem; margin-top: 1rem; flex-wrap: wrap; justify-content: center; }
-.countdown div {
-  min-width: 68px; padding: .5rem .3rem;
-  border: 1px solid var(--gold-soft); border-radius: 6px;
-  font-size: .8rem; text-transform: uppercase; letter-spacing: .15em; color: var(--muted);
-}
-.countdown b { display: block; font-family: "Cinzel", serif; font-size: 1.6rem; color: var(--gold); letter-spacing: 0; }
-.countdown .done { border: none; font-size: 1.2rem; text-transform: none; letter-spacing: 0; }
+.guest { margin-top: 1rem; padding: .8rem 1.5rem 0; border-top: 1px solid var(--gold-soft); }
+.guest[hidden] { display: none; }
+.guest-name { font-family: "Great Vibes", cursive; font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.2; color: var(--ink); }
+.guest-sub { font-family: "Cinzel", serif; letter-spacing: .3em; font-size: 1rem; color: var(--gold); }
 
 .scroll-hint { margin-top: 1.2rem; color: var(--gold); text-decoration: none; font-style: italic; animation: bob 2s ease-in-out infinite; }
 
