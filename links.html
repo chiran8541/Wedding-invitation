@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Invitation link generator</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; color: #2b2420; }
+    h1 { font-size: 1.4rem; }
+    label { display: block; margin: 1rem 0 .3rem; font-weight: 600; }
+    input, textarea { width: 100%; padding: .6rem; font: inherit; border: 1px solid #d9bf7a; border-radius: 6px; }
+    textarea { min-height: 160px; }
+    button, a.btn { font: inherit; padding: .4rem .9rem; margin: .2rem .2rem 0 0; border: 1px solid #a8801f; background: #a8801f; color: #fff; border-radius: 999px; cursor: pointer; text-decoration: none; display: inline-block; }
+    button.ghost { background: transparent; color: #a8801f; }
+    .row { border-top: 1px solid #eee; padding: .8rem 0; }
+    .row code { display: block; word-break: break-all; font-size: .85rem; color: #6d625a; margin: .3rem 0; }
+    .hint { color: #6d625a; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <h1>Invitation link generator</h1>
+  <p class="hint">Type one guest per line as <b>Name, City</b> (optionally <b>Name, City, Line 2</b>; the second line defaults to W/F). Nothing is uploaded; links are built in your browser.</p>
+
+  <label for="base">Your invitation website address</label>
+  <input id="base" placeholder="https://username.github.io/wedding-invitation/">
+
+  <label for="list">Guests</label>
+  <textarea id="list" placeholder="Amarjeet Singh, Delhi&#10;Harpreet Kaur, Jammu&#10;Rohit Sharma, Pune, &amp; Family"></textarea>
+
+  <p><button id="go">Generate links</button></p>
+  <div id="out"></div>
+
+  <script>
+    const base = document.getElementById("base");
+    const list = document.getElementById("list");
+    const out = document.getElementById("out");
+    base.value = localStorage.getItem("base") || "";
+    list.value = localStorage.getItem("list") || "";
+
+    function makeLink(root, name, city, sub) {
+      const u = new URL(root);
+      u.searchParams.set("to", name);
+      if (city) u.searchParams.set("city", city);
+      if (sub) u.searchParams.set("sub", sub);
+      return u.toString();
+    }
+
+    document.getElementById("go").addEventListener("click", () => {
+      let root = base.value.trim();
+      if (!root) { alert("Enter your website address first."); return; }
+      if (!/^https?:\/\//.test(root)) root = "https://" + root;
+      localStorage.setItem("base", base.value);
+      localStorage.setItem("list", list.value);
+      out.replaceChildren();
+
+      list.value.split("\n").map((l) => l.trim()).filter(Boolean).forEach((line) => {
+        const [name, city, sub] = line.split(",").map((s) => s.trim());
+        const link = makeLink(root, name, city, sub);
+        const msg = `Dear ${name}${sub ? " " + sub : " W/F"},\nYou are warmly invited to the wedding of Chiranjeev & Ravneet.\n${link}`;
+
+        const row = document.createElement("div");
+        row.className = "row";
+        const title = document.createElement("b");
+        title.textContent = [name, city].filter(Boolean).join(", ");
+        const code = document.createElement("code");
+        code.textContent = link;
+
+        const copy = document.createElement("button");
+        copy.textContent = "Copy link";
+        copy.addEventListener("click", async () => {
+          await navigator.clipboard.writeText(link);
+          copy.textContent = "Copied ✓";
+          setTimeout(() => (copy.textContent = "Copy link"), 1500);
+        });
+
+        const wa = document.createElement("a");
+        wa.className = "btn";
+        wa.target = "_blank";
+        wa.rel = "noopener";
+        wa.href = "https://wa.me/?text=" + encodeURIComponent(msg);
+        wa.textContent = "Send on WhatsApp";
+
+        const open = document.createElement("a");
+        open.className = "btn ghost";
+        open.style.cssText = "background:transparent;color:#a8801f";
+        open.target = "_blank";
+        open.rel = "noopener";
+        open.href = link;
+        open.textContent = "Preview";
+
+        row.append(title, code, copy, wa, open);
+        out.append(row);
+      });
+    });
+  </script>
+</body>
+</html>
