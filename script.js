@@ -53,24 +53,19 @@ document.querySelectorAll("[data-cal]").forEach((btn) => {
   });
 });
 
-// Countdown to the wedding day (Barat, 22 Nov)
-const target = new Date(EVENTS.barat.start + IST).getTime();
-const box = document.getElementById("countdown");
-function tick() {
-  const diff = target - Date.now();
-  if (diff <= 0) {
-    box.innerHTML = '<div class="done">The celebrations have begun! 🎉</div>';
-    return;
-  }
-  const d = Math.floor(diff / 864e5);
-  const h = Math.floor((diff % 864e5) / 36e5);
-  const m = Math.floor((diff % 36e5) / 6e4);
-  const s = Math.floor((diff % 6e4) / 1e3);
-  box.innerHTML = [["Days", d], ["Hours", h], ["Mins", m], ["Secs", s]]
-    .map(([l, v]) => `<div><b>${v}</b>${l}</div>`).join("");
+// Personalised greeting from the link: ?to=Amarjeet Singh&city=Delhi&sub=W/F
+// Values are written with textContent, so nothing in the URL can inject markup.
+const params = new URLSearchParams(location.search);
+const to = (params.get("to") || "").trim().slice(0, 60);
+if (to) {
+  const city = (params.get("city") || "").trim().slice(0, 40);
+  const sub = (params.get("sub") || "W/F").trim().slice(0, 40);
+  const guest = document.getElementById("guest");
+  guest.querySelector(".guest-name").textContent = city ? `${to}, ${city}` : to;
+  guest.querySelector(".guest-sub").textContent = sub;
+  guest.hidden = false;
+  document.title = `${to} · Chiranjeev weds Ravneet`;
 }
-tick();
-setInterval(tick, 1000);
 
 // Scroll reveal
 const io = new IntersectionObserver((entries) => {
