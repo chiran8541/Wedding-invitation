@@ -56,9 +56,11 @@ document.querySelectorAll("[data-cal]").forEach((btn) => {
 // Personalised greeting from the link: ?to=Amarjeet Singh&city=Delhi&sub=W/F
 // Values are written with textContent, so nothing in the URL can inject markup.
 const params = new URLSearchParams(location.search);
-const to = (params.get("to") || "").trim().slice(0, 60);
+// Capitalise the first letter of each word; the rest is left exactly as typed (so "MM Qaji" stays intact)
+const cap = (t) => t.replace(/(^|\s)(\p{L})/gu, (_, sp, ch) => sp + ch.toUpperCase());
+const to = cap((params.get("to") || "").trim().slice(0, 60));
 if (to) {
-  const city = (params.get("city") || "").trim().slice(0, 40);
+  const city = cap((params.get("city") || "").trim().slice(0, 40));
   const sub = (params.get("sub") || "W/F").trim().slice(0, 40);
   const guest = document.getElementById("guest");
   guest.querySelector(".guest-name").textContent = city ? `${to}, ${city}` : to;
@@ -89,7 +91,7 @@ if (to) {
   if (to) {
     const forLine = document.createElement("p");
     forLine.className = "intro-for";
-    const city = (params.get("city") || "").trim().slice(0, 40);
+    const city = cap((params.get("city") || "").trim().slice(0, 40));
     forLine.textContent = city ? `${to}, ${city}` : to;
     el.append(forLine);
   }
