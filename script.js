@@ -63,7 +63,7 @@ if (to) {
   const city = cap((params.get("city") || "").trim().slice(0, 40));
   const sub = (params.get("sub") || "W/F").trim().slice(0, 40);
   const guest = document.getElementById("guest");
-  guest.querySelector(".guest-name").textContent = city ? `${to}, ${city}` : to;
+  guest.querySelector(".guest-name").textContent = "To - " + (city ? `${to}, ${city}` : to);
   guest.querySelector(".guest-sub").textContent = sub;
   guest.hidden = false;
   document.title = `${to} · Chiranjeev weds Ravneet`;
@@ -87,14 +87,6 @@ if (to) {
   seal.textContent = "C & R";
 
   el.append(eyebrow, seal);
-
-  if (to) {
-    const forLine = document.createElement("p");
-    forLine.className = "intro-for";
-    const city = cap((params.get("city") || "").trim().slice(0, 40));
-    forLine.textContent = city ? `${to}, ${city}` : to;
-    el.append(forLine);
-  }
 
   const tap = document.createElement("p");
   tap.className = "intro-tap";

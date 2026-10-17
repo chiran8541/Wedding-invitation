@@ -5,7 +5,9 @@
   --gold-soft: #d9bf7a;
   --rose: #c98a8a;
   --ink: #2b2420;
-  --muted: #6d625a;
+  --muted: #5c534c;
+  --gold-text: #6e500d; /* deeper antique gold for text: ~7:1 contrast on ivory (bright --gold is for borders/ornaments) */
+  --maroon: #7a2336;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,6 +23,8 @@ body {
     radial-gradient(circle at 80% 90%, #f6dcdc 0, transparent 40%),
     var(--ivory);
   text-align: center;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
 }
 
 .script, .script-line, .script-name, .names { font-family: "Great Vibes", cursive; font-weight: 400; }
@@ -55,9 +59,10 @@ body {
 
 .eyebrow {
   font-family: "Cinzel", serif;
-  letter-spacing: .35em;
-  font-size: .95rem;
-  color: var(--gold);
+  letter-spacing: .28em;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold-text);
   text-transform: uppercase;
 }
 
@@ -79,8 +84,8 @@ body {
 .names span { font-size: clamp(3.2rem, 13vw, 5rem); }
 .names small {
   display: flex; align-items: center; gap: .9rem;
-  font-family: "Cinzel", serif; font-size: .85rem; letter-spacing: .5em; text-indent: .5em;
-  color: var(--gold); text-transform: uppercase; margin: .5rem 0;
+  font-family: "Cinzel", serif; font-size: .95rem; font-weight: 600; letter-spacing: .45em; text-indent: .45em;
+  color: var(--gold-text); text-transform: uppercase; margin: .5rem 0;
 }
 .names small::before, .names small::after {
   content: ""; width: clamp(36px, 12vw, 70px); height: 1px;
@@ -93,10 +98,10 @@ body {
 
 .guest { margin-top: 1rem; padding: .8rem 1.5rem 0; border-top: 1px solid var(--gold-soft); }
 .guest[hidden] { display: none; }
-.guest-name { font-family: "Times New Roman", Times, serif; font-weight: 700; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.25; color: var(--ink); }
-.guest-sub { font-family: "Cinzel", serif; letter-spacing: .3em; font-size: 1rem; color: var(--gold); }
+.guest-name { font-family: "Times New Roman", Times, serif; font-weight: 700; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.25; color: var(--maroon); }
+.guest-sub { font-family: "Times New Roman", Times, serif; font-weight: 700; letter-spacing: .15em; font-size: clamp(1.1rem, 4vw, 1.4rem); line-height: 1.3; color: var(--maroon); }
 
-.scroll-hint { margin-top: 1.2rem; color: var(--gold); text-decoration: none; font-style: italic; animation: bob 2s ease-in-out infinite; }
+.scroll-hint { margin-top: 1.2rem; color: var(--gold-text); text-decoration: none; font-style: italic; animation: bob 2s ease-in-out infinite; }
 
 /* ---------- Content ---------- */
 main { width: min(100% - 2rem, 680px); margin: 0 auto; padding-bottom: 2rem; }
@@ -110,23 +115,23 @@ main { width: min(100% - 2rem, 680px); margin: 0 auto; padding-bottom: 2rem; }
   box-shadow: 0 8px 24px rgba(120, 90, 30, .08);
 }
 .card p, .event p { margin: .45rem 0; }
-.card .script { font-size: 3rem; color: var(--gold); line-height: 1.1; }
+.card .script { font-size: 3rem; color: var(--gold-text); line-height: 1.1; }
 .strong { font-weight: 600; }
 .script-line { font-size: 2rem; margin: .8rem 0 !important; }
 .script-name { font-size: 3rem; line-height: 1.2; margin: .6rem 0 !important; }
-.with { font-style: italic; color: var(--gold); }
+.with { font-style: italic; color: var(--gold-text); }
 .small { font-size: 1rem; color: var(--muted); }
 
 .divider { margin: 1.4rem 0 .2rem; color: var(--gold); display: flex; align-items: center; gap: 1rem; }
 .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-soft), transparent); }
 
-.section-title { font-family: "Cinzel", serif; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; font-size: 1.3rem; color: var(--gold); margin: 3rem 0 1rem; }
+.section-title { font-family: "Cinzel", serif; font-weight: 600; letter-spacing: .25em; text-transform: uppercase; font-size: 1.3rem; color: var(--gold-text); margin: 3rem 0 1rem; }
 
 .timeline { position: relative; }
 .timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--gold-soft); z-index: -1; }
 .event h3 { font-family: "Cinzel", serif; font-weight: 600; font-size: 1.6rem; color: var(--ink); margin: .3rem 0; }
-.event h3 em { font-family: "Cormorant Garamond", serif; font-weight: 400; color: var(--gold); }
-.when { color: var(--gold); letter-spacing: .12em; text-transform: uppercase; font-size: .9rem; }
+.event h3 em { font-family: "Cormorant Garamond", serif; font-weight: 600; color: var(--gold-text); }
+.when { color: var(--gold-text); font-weight: 700; letter-spacing: .03em; font-size: 1.3rem; line-height: 1.3; }
 .time { font-size: 1.4rem; font-weight: 600; }
 .invite { font-style: italic; color: var(--muted); }
 .venue { margin-top: .9rem !important; }
@@ -135,15 +140,15 @@ main { width: min(100% - 2rem, 680px); margin: 0 auto; padding-bottom: 2rem; }
 .btn {
   font: inherit; font-size: 1rem; cursor: pointer;
   padding: .5rem 1.1rem; border-radius: 999px;
-  border: 1px solid var(--gold); background: var(--gold); color: #fff;
+  border: 1px solid var(--gold-text); background: var(--gold-text); color: #fff;
   text-decoration: none; transition: transform .15s, box-shadow .15s;
 }
-.btn.ghost { background: transparent; color: var(--gold); }
+.btn.ghost { background: transparent; color: var(--gold-text); }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(168, 128, 31, .25); }
 
 footer { padding: 2rem 1rem 3rem; color: var(--muted); }
 .heart { color: var(--rose); }
-.credit { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gold-soft); font-family: "Cinzel", serif; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.credit { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gold-soft); font-family: "Cinzel", serif; font-size: .85rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-text); }
 
 /* ---------- Opening seal ---------- */
 .intro {
@@ -157,7 +162,7 @@ footer { padding: 2rem 1rem 3rem; color: var(--muted); }
 }
 .intro.open { transform: translateY(-100%); opacity: 0; pointer-events: none; }
 body.locked { overflow: hidden; }
-.intro-eyebrow { font-family: "Cinzel", serif; letter-spacing: .35em; font-size: .85rem; text-transform: uppercase; color: var(--gold); }
+.intro-eyebrow { font-family: "Cinzel", serif; font-weight: 600; letter-spacing: .28em; font-size: 1rem; text-transform: uppercase; color: var(--gold-text); }
 .seal {
   width: 132px; height: 132px; border-radius: 50%;
   display: grid; place-items: center;
