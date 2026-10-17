@@ -74,15 +74,26 @@ body {
 }
 .monogram i { font-size: 1.8rem; color: var(--gold); font-style: normal; }
 
-.names { font-size: clamp(2.6rem, 9vw, 4.6rem); line-height: 1.15; }
-.names small { font-family: "Cinzel", serif; font-size: .3em; letter-spacing: .25em; color: var(--gold); text-transform: uppercase; padding: 0 .4em; }
+/* Names stacked on one centre line: Chiranjeev / — weds — / Ravneet */
+.names { display: flex; flex-direction: column; align-items: center; line-height: 1.05; margin: .3rem 0; }
+.names span { font-size: clamp(3.2rem, 13vw, 5rem); }
+.names small {
+  display: flex; align-items: center; gap: .9rem;
+  font-family: "Cinzel", serif; font-size: .85rem; letter-spacing: .5em; text-indent: .5em;
+  color: var(--gold); text-transform: uppercase; margin: .5rem 0;
+}
+.names small::before, .names small::after {
+  content: ""; width: clamp(36px, 12vw, 70px); height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.names small::after { transform: scaleX(-1); }
 
 .date { font-size: 1.5rem; font-weight: 600; letter-spacing: .05em; }
 .place { color: var(--muted); letter-spacing: .3em; text-transform: uppercase; font-size: .95rem; }
 
 .guest { margin-top: 1rem; padding: .8rem 1.5rem 0; border-top: 1px solid var(--gold-soft); }
 .guest[hidden] { display: none; }
-.guest-name { font-family: "Great Vibes", cursive; font-size: clamp(1.9rem, 6vw, 2.6rem); line-height: 1.2; color: var(--ink); }
+.guest-name { font-family: "Times New Roman", Times, serif; font-weight: 700; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.25; color: var(--ink); }
 .guest-sub { font-family: "Cinzel", serif; letter-spacing: .3em; font-size: 1rem; color: var(--gold); }
 
 .scroll-hint { margin-top: 1.2rem; color: var(--gold); text-decoration: none; font-style: italic; animation: bob 2s ease-in-out infinite; }
@@ -156,7 +167,7 @@ body.locked { overflow: hidden; }
   animation: pulse 2.4s ease-in-out infinite;
 }
 .intro.open .seal { animation: none; transform: scale(1.3); opacity: 0; transition: transform .5s, opacity .5s; }
-.intro-for { font-family: "Great Vibes", cursive; font-size: clamp(2rem, 8vw, 2.8rem); line-height: 1.2; color: var(--ink); }
+.intro-for { font-family: "Times New Roman", Times, serif; font-weight: 700; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.25; color: var(--ink); }
 .intro-tap { font-style: italic; color: var(--muted); }
 @keyframes pulse { 50% { transform: scale(1.06); } }
 
