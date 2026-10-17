@@ -1,13 +1,13 @@
 // All times are India Standard Time (UTC+05:30)
 const EVENTS = {
   "akhand-arambh": { title: "Shri Akhand Path (Arambh)", start: "2026-11-17T10:00", mins: 120,
-    where: "MRFR+88R, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
+    where: "MRFR+88R HARNAZ TRADERS, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
   "akhand-bhog": { title: "Shri Akhand Path (Bhog)", start: "2026-11-19T12:30", mins: 120,
-    where: "MRFR+88R, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
+    where: "MRFR+88R HARNAZ TRADERS, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
   "dinner": { title: "Dinner - Chiranjeev & Ravneet", start: "2026-11-20T19:00", mins: 180,
     where: "The Legend Banquet, Jeevan Nagar, Babliana, Near M.B.S Eng. College, Jammu" },
   "barat": { title: "Barat - Chiranjeev Singh", start: "2026-11-22T10:30", mins: 180,
-    where: "MRFR+88R, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
+    where: "MRFR+88R HARNAZ TRADERS, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
   "reception": { title: "Reception (Dinner) - Chiranjeev & Ravneet", start: "2026-11-23T19:00", mins: 180,
     where: "Zone by The Park Hotel, Rail Head Complex, Near SBI Bank, Jammu" },
 };
@@ -53,24 +53,63 @@ document.querySelectorAll("[data-cal]").forEach((btn) => {
   });
 });
 
-// Countdown to the wedding day (Barat, 22 Nov)
-const target = new Date(EVENTS.barat.start + IST).getTime();
-const box = document.getElementById("countdown");
-function tick() {
-  const diff = target - Date.now();
-  if (diff <= 0) {
-    box.innerHTML = '<div class="done">The celebrations have begun! 🎉</div>';
-    return;
-  }
-  const d = Math.floor(diff / 864e5);
-  const h = Math.floor((diff % 864e5) / 36e5);
-  const m = Math.floor((diff % 36e5) / 6e4);
-  const s = Math.floor((diff % 6e4) / 1e3);
-  box.innerHTML = [["Days", d], ["Hours", h], ["Mins", m], ["Secs", s]]
-    .map(([l, v]) => `<div><b>${v}</b>${l}</div>`).join("");
+// Personalised greeting from the link: ?to=Amarjeet Singh&city=Delhi&sub=W/F
+// Values are written with textContent, so nothing in the URL can inject markup.
+const params = new URLSearchParams(location.search);
+const to = (params.get("to") || "").trim().slice(0, 60);
+if (to) {
+  const city = (params.get("city") || "").trim().slice(0, 40);
+  const sub = (params.get("sub") || "W/F").trim().slice(0, 40);
+  const guest = document.getElementById("guest");
+  guest.querySelector(".guest-name").textContent = city ? `${to}, ${city}` : to;
+  guest.querySelector(".guest-sub").textContent = sub;
+  guest.hidden = false;
+  document.title = `${to} · Chiranjeev weds Ravneet`;
 }
-tick();
-setInterval(tick, 1000);
+
+// Opening seal: guests tap to open. Skipped on refresh within a session, or with ?intro=0
+(() => {
+  if (params.get("intro") === "0" || sessionStorage.getItem("opened-chiranjeev")) return;
+
+  const el = document.createElement("button");
+  el.type = "button";
+  el.className = "intro";
+  el.setAttribute("aria-label", "Open the invitation");
+
+  const eyebrow = document.createElement("p");
+  eyebrow.className = "intro-eyebrow";
+  eyebrow.textContent = "You are invited";
+
+  const seal = document.createElement("div");
+  seal.className = "seal";
+  seal.textContent = "C & R";
+
+  el.append(eyebrow, seal);
+
+  if (to) {
+    const forLine = document.createElement("p");
+    forLine.className = "intro-for";
+    const city = (params.get("city") || "").trim().slice(0, 40);
+    forLine.textContent = city ? `${to}, ${city}` : to;
+    el.append(forLine);
+  }
+
+  const tap = document.createElement("p");
+  tap.className = "intro-tap";
+  tap.textContent = "Tap to open";
+  el.append(tap);
+
+  document.body.classList.add("locked");
+  document.body.append(el);
+
+  el.addEventListener("click", () => {
+    sessionStorage.setItem("opened-chiranjeev", "1");
+    el.classList.add("open");
+    document.body.classList.remove("locked");
+    setTimeout(() => el.remove(), 1100);
+  });
+  el.focus();
+})();
 
 // Scroll reveal
 const io = new IntersectionObserver((entries) => {
