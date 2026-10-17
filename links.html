@@ -22,9 +22,6 @@
   <h1>Invitation link generator</h1>
   <p class="hint">Type one guest per line as <b>Name, City</b> (optionally <b>Name, City, Line 2</b>; the second line defaults to W/F). Nothing is uploaded; links are built in your browser.</p>
 
-  <!-- <label for="base">Your invitation website address</label>
-  <input id="base" placeholder="https://username.github.io/wedding-invitation/"> -->
-
   <label for="list">Guests</label>
   <textarea id="list" placeholder="Amarjeet Singh, Delhi&#10;Harpreet Kaur, Jammu&#10;Rohit Sharma, Pune, &amp; Family"></textarea>
 
@@ -32,7 +29,18 @@
   <div id="out"></div>
 
   <script>
-    const SITE_URL = "https://chiran8541.github.io/Wedding-invitation/";
+    const LIVE_URL = "https://chiran8541.github.io/Wedding-invitation/";
+    // Opened from a file on this computer: point links at the local index.html so you can test changes.
+    // Opened from the website: use the live address.
+    const LOCAL = location.protocol === "file:";
+    const SITE_URL = LOCAL ? location.href.replace(/links\.html.*$/, "index.html") : LIVE_URL;
+    if (LOCAL) {
+      const note = document.createElement("p");
+      note.className = "hint";
+      note.style.cssText = "background:#fff3cd;padding:.5rem .8rem;border-radius:6px";
+      note.textContent = "Local test mode: links open the index.html on this computer. Don't send these to guests.";
+      document.querySelector(".hint").after(note);
+    }
     const list = document.getElementById("list");
     const out = document.getElementById("out");
     list.value = localStorage.getItem("list") || "";
@@ -53,7 +61,9 @@
       list.value.split("\n").map((l) => l.trim()).filter(Boolean).forEach((line) => {
         const [name, city, sub] = line.split(",").map((s) => s.trim());
         const link = makeLink(root, name, city, sub);
-        const msg = `To - ${name} ,\nYou are warmly invited to the wedding of my son Chiranjeev Singh.\n${link}\n\nBest Regards,\nRajinder Singh`;
+        // WhatsApp bold is *text*; only "Invitation Link :-" is wrapped
+        const msg = `To - ${name},\n\nYou are warmly invited to the wedding of my son Chiranjeev Singh.\n\n*Invitation Link :-* ${link}\n\nBest Regards,\nRajinder Singh`;
+
         const row = document.createElement("div");
         row.className = "row";
         const title = document.createElement("b");
