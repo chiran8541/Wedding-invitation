@@ -177,7 +177,7 @@ body.locked { overflow: hidden; }
 }
 .intro.open .seal { animation: none; transform: scale(1.3); opacity: 0; transition: transform .5s, opacity .5s; }
 .intro-for { font-family: "Times New Roman", Times, serif; font-weight: 700; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.25; color: var(--maroon); }
-.intro-sub { font-family: "Times New Roman", Times, serif; font-weight: 700; letter-spacing: .15em; font-size: clamp(1.1rem, 4vw, 1.4rem); line-height: 1.3; color: var(--maroon); margin-top: -.5rem; }
+.intro-sub { font-family: "Great Vibes", cursive; font-weight: 400; font-size: clamp(1.5rem, 5.5vw, 2rem); line-height: 1.2; color: var(--maroon); margin-top: -.4rem; }
 .intro-tap { font-style: italic; color: var(--muted); }
 @keyframes pulse { 50% { transform: scale(1.06); } }
 

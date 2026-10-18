@@ -60,7 +60,9 @@ const params = new URLSearchParams(location.search);
 const cap = (t) => t.replace(/(^|\s)(\p{L})/gu, (_, sp, ch) => sp + ch.toUpperCase());
 const to = cap((params.get("to") || "").trim().slice(0, 60));
 const city = cap((params.get("city") || "").trim().slice(0, 40));
-const sub = (params.get("sub") || "W/F").trim().slice(0, 40);
+// Second line under the name; "W/F" (or nothing) means "With Family"
+const rawSub = (params.get("sub") || "").trim().slice(0, 40);
+const sub = !rawSub || rawSub.toUpperCase() === "W/F" ? "With Family" : rawSub;
 if (to) document.title = `${to} · Chiranjeev weds Ravneet`;
 
 // Countdown to the wedding day (Barat, 22 Nov, 10:30 am IST)
