@@ -2,7 +2,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: [main, cards]
+    branches: [master, cards]
   workflow_dispatch:
 
 permissions:
@@ -23,8 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
-          path: main
+          ref: master
+          path: master
       - uses: actions/checkout@v4
         with:
           ref: cards
@@ -32,7 +32,7 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p site/cards
-          rsync -a --exclude .git main/ site/
+          rsync -a --exclude .git master/ site/
           rsync -a --exclude .git cards/ site/cards/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
