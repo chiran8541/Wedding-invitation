@@ -8,8 +8,6 @@ const EVENTS = {
     where: "The Legend Banquet, Jeevan Nagar, Babliana, Near M.B.S Eng. College, Jammu" },
   "barat": { title: "Barat - Chiranjeev Singh", start: "2026-11-22T10:30", mins: 180,
     where: "MRFR+88R HARNAZ TRADERS, RS Pura Rd, Satwari, Jeevan Nagar, Jammu, Jammu and Kashmir 181101" },
-  "reception": { title: "Reception (Dinner) - Chiranjeev & Ravneet", start: "2026-11-23T19:00", mins: 180,
-    where: "Zone by The Park Hotel, Rail Head Complex, Near SBI Bank, Jammu" },
 };
 
 const IST = "+05:30";
